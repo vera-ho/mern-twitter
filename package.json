@@ -4,7 +4,9 @@
   "description": "mern_twitter project",
   "main": "app.js",
   "scripts": {
-    "test": "tmt"
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

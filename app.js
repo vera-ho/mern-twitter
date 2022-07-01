@@ -1,5 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
+
 import { db } from "./config/keys.js";
 import { router as users} from "./routes/api/users.js";
 import { router as tweets } from "./routes/api/tweets.js"
@@ -18,3 +20,6 @@ app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+

@@ -86,7 +86,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
         id: req.user.id,
         handle: req.user.handle,
         email: req.user.email,
-        msg: 'Success' 
+        // msg: 'Success' 
     });
 })
 

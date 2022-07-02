@@ -9,6 +9,12 @@ options.secretOrKey = db.secretOrKey;
 
 export const passport = (passport) => {
     passport.use(new Strategy(options, (jwt_payload, done) => {
+        // User.findById(jwt_payload.id)
+        //     .then( user => {
+        //         if(user) {
+        //             return done(null, user);
+        //         }
+        //     }).catch( err => console.log(err));
         console.log(jwt_payload);
         done();
     }));

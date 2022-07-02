@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import User from "../../models/User.js";
 import jwt from "jsonwebtoken";
 import { db } from "../../config/keys.js";
+import passport from "passport";
 
 export const router = express.Router();
 
@@ -79,3 +80,8 @@ router.post("/login", (req, res) => {
                 })
         })
 })
+
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({ msg: 'Success' });
+})
+

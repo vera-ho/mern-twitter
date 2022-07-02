@@ -25,10 +25,6 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 PassportUtil.passport(passport);
 
-// app.get("/", (req, res) => {
-//   res.send("Adopt a Dino");
-// })
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 

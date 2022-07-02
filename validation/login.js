@@ -1,5 +1,5 @@
 import Validator from "validator";
-import validText from "./valid-text";
+import validText from "./valid-text.js";
 
 export const validateLoginInput = data => {
     let errors = {};

@@ -7,7 +7,8 @@ import { router as users} from "./routes/api/users.js";
 import { router as tweets } from "./routes/api/tweets.js"
 import * as PassportUtil from "./config/passport.js";
 import passport from "passport";
-// import User from "./models/User.js";
+
+// import expressListRoutes from "express-list-routes";  
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(passport.initialize());
 PassportUtil.passport(passport);
@@ -30,6 +33,6 @@ app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
+// display routes in console
+// expressListRoutes(app, { prefix: "/api" });

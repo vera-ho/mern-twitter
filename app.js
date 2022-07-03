@@ -10,10 +10,10 @@ import * as PassportUtil from "./config/passport.js";
 import passport from "passport";
 
 import cors from "cors";
-
 // import expressListRoutes from "express-list-routes";  
 
 const app = express();
+app.use(cors());
 
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));

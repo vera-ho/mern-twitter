@@ -2,146 +2,147 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-const LoginForm = props => {
+class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+    this.state = {
+      email: '',
+      password: '',
+      errors: {}
+    };
 
-  useEffect( () => {
-    if(props.currentUser === true) {
-      props.history.push('/tweets');
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
+  }
+
+  // Once the user has been authenticated, redirect to the Tweets page
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser === true) {
+      this.props.history.push('/tweets');
     }
-    setErrors(props.errors);
-  }, props.currentUser);
 
-  const handleSubmit = e => {
+    // Set or clear errors
+    this.setState({errors: nextProps.errors})
+  }
+
+  // Handle field updates (called in the render method)
+  update(field) {
+    return e => this.setState({
+      [field]: e.currentTarget.value
+    });
+  }
+
+  // Handle form submission
+  handleSubmit(e) {
     e.preventDefault();
+
     let user = {
-      email: email,
-      password: password
-    }
-    props.login(user);
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    this.props.login(user); 
   }
 
-  const renderErrors = () => {
-    return (
+  // Render the session errors if there are any
+  renderErrors() {
+    return(
       <ul>
-      {Object.keys(errors).map((error, i) => (
-        <li key={`error-${i}`}>
-          {errors[error]}
-        </li>
-      ))}
-    </ul>
-    )
+        {Object.keys(this.state.errors).map((error, i) => (
+          <li key={`error-${i}`}>
+            {this.state.errors[error]}
+          </li>
+        ))}
+      </ul>
+    );
   }
 
-  return (
+  render() {
+    return (
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <div>
               <input type="text"
-                value={email}
-                onChange={ e => setEmail(e.target.value) }
+                value={this.state.email}
+                onChange={this.update('email')}
                 placeholder="Email"
               />
             <br/>
               <input type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
+                value={this.state.password}
+                onChange={this.update('password')}
                 placeholder="Password"
               />
             <br/>
             <input type="submit" value="Submit" />
-            {renderErrors()}
+            {this.renderErrors()}
           </div>
         </form>
       </div>
-  )
+    );
+  }
 }
 
 
 
-// class LoginForm extends React.Component {
-//   constructor(props) {
-//     super(props);
 
-//     this.state = {
-//       email: '',
-//       password: '',
-//       errors: {}
-//     };
+// const LoginForm = props => {
 
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//     this.renderErrors = this.renderErrors.bind(this);
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [errors, setErrors] = useState({});
+
+//   useEffect( () => {
+//     if(props.currentUser === true) {
+//       props.history.push('/tweets');
+//     }
+//     setErrors(props.errors);
+//   }, props.currentUser);
+
+//   const handleSubmit = e => {
+//     e.preventDefault();
+//     let user = {
+//       email: email,
+//       password: password
+//     }
+//     props.login(user);
 //   }
 
-  // Once the user has been authenticated, redirect to the Tweets page
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.currentUser === true) {
-  //     this.props.history.push('/tweets');
-  //   }
-
-  //   // Set or clear errors
-  //   this.setState({errors: nextProps.errors})
-  // }
-
-  // Handle field updates (called in the render method)
-  // update(field) {
-  //   return e => this.setState({
-  //     [field]: e.currentTarget.value
-  //   });
-  // }
-
-  // Handle form submission
-  // handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   let user = {
-  //     email: this.state.email,
-  //     password: this.state.password
-  //   };
-
-  //   this.props.login(user); 
-  // }
-
-  // Render the session errors if there are any
-//   renderErrors() {
-//     return(
-//       <ul>
-//         {Object.keys(this.state.errors).map((error, i) => (
-//           <li key={`error-${i}`}>
-//             {this.state.errors[error]}
-//           </li>
-//         ))}
-//       </ul>
-//     );
-//   }
-
-//   render() {
+//   const renderErrors = () => {
 //     return (
+//       <ul>
+//       {Object.keys(errors).map((error, i) => (
+//         <li key={`error-${i}`}>
+//           {errors[error]}
+//         </li>
+//       ))}
+//     </ul>
+//     )
+//   }
+
+//   return (
 //       <div>
-//         <form onSubmit={this.handleSubmit}>
+//         <form onSubmit={handleSubmit}>
 //           <div>
 //               <input type="text"
-//                 value={this.state.email}
-//                 onChange={this.update('email')}
+//                 value={email}
+//                 onChange={ e => setEmail(e.target.value) }
 //                 placeholder="Email"
 //               />
 //             <br/>
 //               <input type="password"
-//                 value={this.state.password}
-//                 onChange={this.update('password')}
+//                 value={password}
+//                 onChange={e => setPassword(e.target.value)}
 //                 placeholder="Password"
 //               />
 //             <br/>
 //             <input type="submit" value="Submit" />
-//             {this.renderErrors()}
+//             {renderErrors()}
 //           </div>
 //         </form>
 //       </div>
-//     );
-//   }
+//   )
 // }
 
 export default withRouter(LoginForm);

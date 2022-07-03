@@ -8,9 +8,11 @@ import { router as tweets } from "./routes/api/tweets.js"
 import * as PassportUtil from "./config/passport.js";
 import passport from "passport";
 
+import cors from "cors";
 // import expressListRoutes from "express-list-routes";  
 
 const app = express();
+app.use(cors());
 
 mongoose
   .connect(db.mongoURI, { useNewUrlParser: true })

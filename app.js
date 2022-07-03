@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
@@ -13,6 +14,14 @@ import cors from "cors";
 // import expressListRoutes from "express-list-routes";  
 
 const app = express();
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
+
 app.use(cors());
 
 mongoose

@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import User from "../../models/User.js";
 import jwt from "jsonwebtoken";
-import { db } from "../../config/keys.js";
+import { key } from "../../config/keys.js";
 import passport from "passport";
 
 import { validateLoginInput } from "../../validation/login.js";
@@ -37,7 +37,7 @@ router.post("/register", (req, res) => {
                             .then(user => {
                                 const payload = { id: user.id, handle: user.handle };
                                 jwt.sign( payload, 
-                                    db.secretOrKey, 
+                                    key.secretOrKey, 
                                     { expiresIn: 3600 }, 
                                     (err, token) => {
                                         res.json({
@@ -78,7 +78,7 @@ router.post("/login", (req, res) => {
 
                         jwt.sign(
                             payload,
-                            db.secretOrKey,
+                            key.secretOrKey,
                             { expiresIn: 3600 },
                             (err, token) => {
                                 res.json({

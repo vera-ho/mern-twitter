@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
-import { db } from "./config/keys.js";
+import { key } from "./config/keys.js";
 import { router as users} from "./routes/api/users.js";
 import { router as tweets } from "./routes/api/tweets.js"
 import * as PassportUtil from "./config/passport.js";
@@ -16,7 +16,7 @@ const app = express();
 app.use(cors());
 
 mongoose
-  .connect(db.mongoURI, { useNewUrlParser: true })
+  .connect(key.mongoURI, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 

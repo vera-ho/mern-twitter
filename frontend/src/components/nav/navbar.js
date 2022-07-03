@@ -9,13 +9,13 @@ const NavBar = props => {
      }
 
      const getLinks = () => {
-        if (this.props.loggedIn) {
+        if (props.loggedIn) {
             return (
                 <div>
                     <Link to={'/tweets'}>All Tweets</Link>
                     <Link to={'/profile'}>Profile</Link>
                     <Link to={'/new_tweet'}>Write a Tweet</Link>
-                    <button onClick={this.logoutUser}>Logout</button>
+                    <button onClick={logoutUser}>Logout</button>
                 </div>
             );
         } else {

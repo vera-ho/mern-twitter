@@ -25,8 +25,8 @@ if(process.env.NODE_ENV === 'production') {
 
 app.use(cors());
 
-console.log("*************************")
-console.log(key)
+// console.log("*************************")
+// console.log(key)
 
 mongoose
   .connect(key.default.mongoURI, { useNewUrlParser: true })
@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 app.use(passport.initialize());
 PassportUtil.passport(passport);

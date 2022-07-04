@@ -3,7 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
-import { key } from "./config/keys.js";
+// import { key } from "./config/keys.js";
+import key from "./config/keys.js";
 import { router as users} from "./routes/api/users.js";
 import { router as tweets } from "./routes/api/tweets.js"
 import * as PassportUtil from "./config/passport.js";
@@ -24,8 +25,11 @@ if(process.env.NODE_ENV === 'production') {
 
 app.use(cors());
 
+console.log("*************************")
+console.log(key)
+
 mongoose
-  .connect(key.mongoURI, { useNewUrlParser: true })
+  .connect(key.default.mongoURI, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 

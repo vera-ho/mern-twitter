@@ -1,11 +1,9 @@
-import { db } from "./keys_dev.js"
-import { keys } from "./keys_prod.js"
-
-export let key;
-console.log(process.env.NODE_ENV);
+let key;
 
 if (process.env.NODE_ENV === 'production') {
-    key = keys;
+    key = await import("./keys_prod.js");
 } else {
-    key = db;
+    key = await import("./keys_dev.js");
 }
+
+export default key;
